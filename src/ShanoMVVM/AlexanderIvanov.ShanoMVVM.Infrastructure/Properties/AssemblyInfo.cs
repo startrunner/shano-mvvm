@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ShanoMVVM")]
+[assembly: AssemblyTitle("AlexanderIvanov.ShanoMVVM.Infrastructure")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ShanoMVVM")]
+[assembly: AssemblyProduct("AlexanderIvanov.ShanoMVVM.Infrastructure")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ce05c42f-9728-411f-91ab-bbd418ed9ba4")]
+[assembly: Guid("b4ec4e26-4b70-40d7-983f-aab584155586")]
 
 // Version information for an assembly consists of the following four values:
 //

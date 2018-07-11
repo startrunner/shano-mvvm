@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{87490055-47EC-4F24-9020-48A201446220}</ProjectGuid>
+    <ProjectGuid>{4DE0D499-7C67-498E-A7CD-4A8907A82487}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ShanoMVVM.DIalogs</RootNamespace>
-    <AssemblyName>ShanoMVVM.DIalogs</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>AlexanderIvanov.ShanoMVVM</RootNamespace>
+    <AssemblyName>AlexanderIvanov.ShanoMVVM</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -53,6 +53,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Parameterized.cs_" />
+    <None Include="Command.cs_" />
+    <None Include="CommandTie_Constructors.cs_" />
+    <Compile Include="Call.cs" />
+    <Compile Include="CallCommand.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="Tie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -66,10 +73,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ShanoDialog.xaml.cs">
-      <DependentUpon>ShanoDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShanoDialogButtons.cs" />
+    <Compile Include="ViewLocator.cs" />
+    <Compile Include="ViewModelBase.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -80,10 +85,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ShanoDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AlexanderIvanov.ShanoMVVM.Infrastructure\AlexanderIvanov.ShanoMVVM.Infrastructure.csproj">
+      <Project>{B4EC4E26-4B70-40D7-983F-AAB584155586}</Project>
+      <Name>AlexanderIvanov.ShanoMVVM.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

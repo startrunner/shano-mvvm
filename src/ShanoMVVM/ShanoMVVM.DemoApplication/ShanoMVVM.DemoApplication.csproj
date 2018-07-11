@@ -36,6 +36,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -78,6 +81,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -97,9 +101,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShanoMVVM\ShanoMVVM.csproj">
-      <Project>{ce05c42f-9728-411f-91ab-bbd418ed9ba4}</Project>
-      <Name>ShanoMVVM</Name>
+    <ProjectReference Include="..\AlexanderIvanov.ShanoMVVM.Infrastructure\AlexanderIvanov.ShanoMVVM.Infrastructure.csproj">
+      <Project>{B4EC4E26-4B70-40D7-983F-AAB584155586}</Project>
+      <Name>AlexanderIvanov.ShanoMVVM.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AlexanderIvanov.ShanoMVVM\AlexanderIvanov.ShanoMVVM.csproj">
+      <Project>{4de0d499-7c67-498e-a7cd-4a8907a82487}</Project>
+      <Name>AlexanderIvanov.ShanoMVVM</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ShanoMVVM.Infrastructure\ShanoMVVM.Infrastructure.csproj" />
+    <ProjectReference Include="..\AlexanderIvanov.ShanoMVVM.Infrastructure\AlexanderIvanov.ShanoMVVM.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

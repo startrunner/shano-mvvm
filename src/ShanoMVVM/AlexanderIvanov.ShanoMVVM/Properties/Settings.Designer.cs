@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ShanoMVVM.DIalogs.Properties
+namespace AlexanderIvanov.ShanoMVVM.Properties
 {
 
 

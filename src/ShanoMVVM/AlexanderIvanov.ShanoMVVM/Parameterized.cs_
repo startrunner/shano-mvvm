@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Markup;
+
+namespace AlexanderIvanov.ShanoMVVM
+{
+    [MarkupExtensionReturnType(typeof(ICommand))]
+    public sealed partial class Parameterized : MarkupExtension
+    {
+        readonly Binding mCommandBinding;
+
+        public Parameterized(Binding commandBinding, object[] parameters)
+        {
+            mCommandBinding = commandBinding;
+            Parameters = parameters;
+        }
+
+        public object DataContext { get; set; }
+        public IReadOnlyList<object> Parameters { get; }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new RelayCommand(()=>Execute(serviceProvider));
+
+        private void Execute(IServiceProvider serviceProvider)
+        {
+            object[] parametersToPass=new object[Parameters.Count];
+
+            for(int i=0;i<Parameters.Count;i++)
+            {
+                if(Parameters[i] is Binding b)
+                {
+                    parametersToPass[i] = b.ProvideValue(null); ;
+                }
+                else
+                {
+                    parametersToPass[i] = Parameters[i];
+                }
+            }
+
+            Execute(serviceProvider, parametersToPass);
+        }
+
+        private void Execute(IServiceProvider serviceProvider, object[] parametersToPass)
+        {
+            IProvideValueTarget target = serviceProvider.GetService(typeof(IProvideValueTarget)) as IProvideValueTarget;
+            ;
+            var command = (Command)mCommandBinding.ProvideValue(serviceProvider);
+            command.Execute(parametersToPass);
+        }
+    }
+}

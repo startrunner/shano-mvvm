@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ShanoMVVM.DIalogs.Properties
+namespace AlexanderIvanov.ShanoMVVM.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace ShanoMVVM.DIalogs.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ShanoMVVM.DIalogs.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AlexanderIvanov.ShanoMVVM.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

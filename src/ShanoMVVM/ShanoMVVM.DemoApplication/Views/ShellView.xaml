@@ -3,16 +3,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:sh="clr-namespace:AlexanderIvanov.ShanoMVVM;assembly=AlexanderIvanov.ShanoMVVM"
+        xmlns:sh="http://source.exposed/xmlns/shano-mvvm"
         xmlns:vm="clr-namespace:ShanoMVVM.DemoApplication.ViewModels"
         mc:Ignorable="d vm"
         Title="ShellView" Height="450" Width="800"
-        Name="XWindow"
-        d:DataContext="{d:DesignInstance Type=vm:ShellViewModel, IsDesignTimeCreatable=False}">
+        Name="XWindow">
     <StackPanel Orientation="Vertical">
-        <CheckBox Content="Check me" Name="xCheckA"/>
-        <TextBox Name="xTextB" Text="{sh:Tie {Binding Alpha}, DesignTimeValue=123}"/>
-        <TextBox Name="xTextC"/>
-        <Button Content="Click me" Name="XButtonClick" Command="{sh:Call ExecuteFoo}"/>
+        
     </StackPanel>
 </Window>

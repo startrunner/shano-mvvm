@@ -21,7 +21,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,13 +53,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Parameterized.cs_" />
-    <None Include="Command.cs_" />
-    <None Include="CommandTie_Constructors.cs_" />
-    <Compile Include="Call.cs" />
-    <Compile Include="CallCommand.cs" />
-    <Compile Include="Command.cs" />
-    <Compile Include="Tie.cs" />
+    <Compile Include="Bind.cs" />
+    <Compile Include="DependencyObjectExtensions.cs" />
+    <Compile Include="DialogManager.cs" />
+    <Compile Include="IDialogManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -73,8 +70,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ViewLocator.cs" />
-    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="ValueConverter.cs" />
+    <Compile Include="WindowShowBehavior.cs" />
+    <Compile Include="ViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

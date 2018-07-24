@@ -7,7 +7,7 @@ namespace AlexanderIvanov.ShanoMVVM
         bool? Show(
             object viewModel,
             WindowShowBehavior behavior = WindowShowBehavior.Dialog,
-            ViewModel owner = null,
+            IViewModel ownerViewModel = null,
             Action onClosed = null
         );
     }

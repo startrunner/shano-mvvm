@@ -13,7 +13,7 @@ namespace AlexanderIvanov.ShanoMVVM.Infrastructure
         private static void Evaluate(this object o) { }
 
         private static NullReferenceException CreateNullReferenceException<T>(string valueName, string typeSuffix = "") =>
-            throw new NullReferenceException(
+            new NullReferenceException(
                 $"Value '{valueName}' must be of type {typeof(T).Name}{typeSuffix} cannot be null."
             );
     }

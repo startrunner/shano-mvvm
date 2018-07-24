@@ -57,6 +57,9 @@
     <Compile Include="DependencyObjectExtensions.cs" />
     <Compile Include="DialogManager.cs" />
     <Compile Include="IDialogManager.cs" />
+    <Compile Include="Injection.cs" />
+    <Compile Include="InjectOnShowAttribute.cs" />
+    <Compile Include="IViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

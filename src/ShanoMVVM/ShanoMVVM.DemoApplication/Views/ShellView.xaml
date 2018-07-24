@@ -7,8 +7,11 @@
         xmlns:vm="clr-namespace:ShanoMVVM.DemoApplication.ViewModels"
         mc:Ignorable="d vm"
         Title="ShellView" Height="450" Width="800"
-        Name="XWindow">
+        Name="XWindow"
+        >
     <StackPanel Orientation="Vertical">
-        
+        <TextBox Text="{Binding Alpha, Mode=OneWay}"/>
+        <TextBox Text="{Binding Beta, Mode=OneWay}"/>
+        <TextBox Text="{Binding Gamma, Mode=OneWay}"/>
     </StackPanel>
 </Window>

@@ -10,14 +10,14 @@ using System.Windows.Input;
 
 namespace AlexanderIvanov.ShanoMVVM
 {
-    public abstract class ViewModel : DependencyObject, INotifyPropertyChanged
+    public abstract class ViewModel : DependencyObject, INotifyPropertyChanged, IViewModel
     {
         static long IdCounter = 0;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public event Action<ViewModel, bool?> TryingToClose;
 
-        internal long ViewModelId { get; } = Interlocked.Increment(ref IdCounter);
+        public long UniqueId { get; } = Interlocked.Increment(ref IdCounter);
         Dictionary<string, RelayCommand> mCommandsByName = null;
         Dictionary<string, RelayCommand> CommandsByName =>
             mCommandsByName ?? (mCommandsByName = new Dictionary<string, RelayCommand>());
@@ -76,5 +76,10 @@ namespace AlexanderIvanov.ShanoMVVM
 
         protected void TryClose(bool? resultValue) => TryingToClose?.Invoke(this, resultValue);
 
+        internal void InvokeOnShowing() => OnShowing();
+        internal void InvokeOnShown() => OnShown();
+
+        protected virtual void OnShowing() { }
+        protected virtual void OnShown() { }
     }
 }

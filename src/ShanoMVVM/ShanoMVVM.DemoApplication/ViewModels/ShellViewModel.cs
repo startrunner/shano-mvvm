@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using AlexanderIvanov.ShanoMVVM;
 
@@ -10,7 +11,13 @@ namespace ShanoMVVM.DemoApplication.ViewModels
 
         public string Beta { get; set; } = "B";
 
-        public string Gamma => throw new NotImplementedException();
+        public string Gamma => "C";
+
+        [InjectOnShow]
+        public IReadOnlyList<int> Integers { get; private set; }
+
+        [InjectOnShow]
+        readonly IReadOnlyList<int> mIntegers;
 
         public Action Foo => ExecuteFoo;
         public Action Bar => ExecuteBar;
@@ -18,6 +25,11 @@ namespace ShanoMVVM.DemoApplication.ViewModels
         private void ExecuteOkay()
         {
             
+        }
+
+        protected override void OnShowing()
+        {
+
         }
 
         public void ExecuteFoo()

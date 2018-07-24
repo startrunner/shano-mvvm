@@ -4,9 +4,8 @@ namespace ShanoMVVM.DemoApplication.Views
 {
     public partial class ShellView : Window
     {
-        public ShellView(object dataContext)
+        public ShellView()
         {
-            DataContext = dataContext;
             InitializeComponent();
         }
     }

@@ -1,0 +1,26 @@
+﻿<Window x:Class="ShanoLibraries.MVVM.DemoApplication.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sh="http://source.exposed/xmlns/shano-mvvm"
+        xmlns:vm="clr-namespace:ShanoLibraries.MVVM.DemoApplication.ViewModels"
+        xmlns:convert="clr-namespace:ShanoLibraries.MVVM.DemoApplication.ValueConverters"
+        mc:Ignorable="d vm"
+        Title="ShellView" Height="450" Width="800"
+        Name="XWindow"
+        d:DataContext="{d:DesignInstance Type=vm:ShellViewModel, IsDesignTimeCreatable=False}"
+        >
+
+    <Grid>
+        <Grid Name="xBlockingGrid" Visibility="Collapsed" Background="#33A9A9A9" Panel.ZIndex="9999999"/>
+        <StackPanel Orientation="Vertical">
+            <TextBox Text="{Binding Alpha, Mode=OneWay, Converter={convert:TextToUpperConverter}}"/>
+            <TextBox Text="{Binding Beta, Mode=OneWay}"/>
+            <TextBox Text="{Binding Gamma, Mode=OneWay}"/>
+            <Button Content="Foo" Command="{Binding Foo}"/>
+            <Button Content="Bar" Command="{Binding Bar}"/>
+            <Button Content="Block" Command="{Binding Block}"/>
+        </StackPanel>
+    </Grid>
+</Window>

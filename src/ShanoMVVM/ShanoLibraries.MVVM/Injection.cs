@@ -18,7 +18,7 @@ namespace ShanoLibraries.MVVM
             SetterAction = Ensure.NotNull(setterAction, nameof(SetterAction));
 
             HasIdentifier = hasIdentifier;
-            Identifier = Identifier;
+            Identifier = identifier;
         }
     }
 }

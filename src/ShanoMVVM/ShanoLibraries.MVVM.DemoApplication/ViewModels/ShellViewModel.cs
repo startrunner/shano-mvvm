@@ -23,6 +23,8 @@ namespace ShanoLibraries.MVVM.DemoApplication.ViewModels
         [Inject]
         IDialogManager mDialogManager;
 
+        [Inject("key123")] string str;
+
         public ShellViewModel(IDependencyManager dependencies) : base(dependencies)
         {
             Alpha = string.Join(", ", Integers) + "the quick brown fox";

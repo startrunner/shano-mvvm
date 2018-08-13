@@ -31,6 +31,7 @@ namespace ShanoLibraries.MVVM.DemoApplication
             ContainerBuilder containerBuilder = new ContainerBuilder();
             containerBuilder.Register<IReadOnlyList<int>>(x => new[] { 1, 2, 3 });
             containerBuilder.Register<IDialogManager>(x => dialogManager);
+            containerBuilder.RegisterInstance<string>("TEXT :)").Keyed<string>("key123");
 
             var dependencies = new DependencyManager<IContainer>(
                 containerBuilder.Build(),

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using ShanoLibraries.MVVM.DependencyInjection;
+using ShanoLibraries.MVVM.Dialogs;
+using ShanoLibraries.MVVM.ViewModels;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using ShanoLibraries.MVVM;
 
 namespace ShanoLibraries.MVVM.DemoApplication.ViewModels
 {
-    public class ShellViewModel : InjectingViewModel
+    public class ShellViewModel : StandardViewModel
     {
         public string Alpha { get; set; } = "A";
 
@@ -14,33 +15,25 @@ namespace ShanoLibraries.MVVM.DemoApplication.ViewModels
 
         public string Gamma => "C";
 
-        [Inject]
-        public IReadOnlyList<int> Integers { get; private set; } 
+        public IReadOnlyList<int> Intgers { get; }
+        readonly IReadOnlyList<int> integers = null;
+        readonly IViewManager viewManager = null;
+        readonly string str;
 
-        [Inject]
-        IReadOnlyList<int> mIntegers;
-
-        [Inject]
-        IDialogManager mDialogManager;
-
-        [Inject("key123")] string str;
-
-        public ShellViewModel(IDependencyManager dependencies) : base(dependencies)
+        public ShellViewModel(IDependencyProvider dependencies)
         {
-            Alpha = string.Join(", ", Integers) + "the quick brown fox";
-            Beta = string.Join(", ", mIntegers);
+            dependencies
+                .ResolveKeyed("key123", out str)
+                .Resolve(out integers, out viewManager);
+            Intgers = dependencies.Resolve<IReadOnlyList<int>>();
+            ;
+            Alpha = string.Join(", ", Intgers) + "the quick brown fox";
+            Beta = string.Join(", ", integers);
         }
 
         bool fooCanExecute = true;
-        public ICommand Foo => Command(ExecuteFoo, ()=>fooCanExecute);
-        public ICommand Bar => Command(ExecuteBar);
-        public ICommand Block => Command(ExecuteBlock);
-
-        private void ExecuteBlock()
-        {
-            var block = new BlockingViewModel { };
-            mDialogManager.Block(block, ownerViewModel: this);
-        }
+        public ICommand Foo => RelayCommand(ExecuteFoo, () => fooCanExecute);
+        public ICommand Bar => RelayCommand(ExecuteBar);
 
         private void ExecuteOkay()
         {
@@ -54,7 +47,7 @@ namespace ShanoLibraries.MVVM.DemoApplication.ViewModels
 
         public void ExecuteFoo()
         {
-            MessageBox.Show(string.Join(", ", Integers), "foo");
+            MessageBox.Show(string.Join(", ", Intgers), "foo");
         }
 
         public void ExecuteBar()

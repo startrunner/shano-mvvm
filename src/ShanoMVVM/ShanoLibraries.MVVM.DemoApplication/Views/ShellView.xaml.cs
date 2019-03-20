@@ -1,22 +1,24 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace ShanoLibraries.MVVM.DemoApplication.Views
 {
-    public partial class ShellView : Window, IBlockableWindow
+    public partial class ShellView : Page
     {
         public ShellView()
         {
             InitializeComponent();
         }
 
-        public bool IsBlocked => xBlockingGrid.Visibility != Visibility.Visible;
+        public bool IsBlockedByPopup => xBlockingGrid.Visibility == Visibility.Visible;
 
-        public void Block(FrameworkElement popup)
+        public void BlockWithPopup(FrameworkElement popup)
         {
             xBlockingGrid.Visibility = Visibility.Visible;
             xBlockingGrid.Children.Add(popup);
         }
-        public void Unblock()
+
+        public void HidePopup()
         {
             xBlockingGrid.Children.Clear();
             xBlockingGrid.Visibility = Visibility.Collapsed;

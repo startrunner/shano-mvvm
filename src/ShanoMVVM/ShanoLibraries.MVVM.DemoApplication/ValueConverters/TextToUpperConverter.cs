@@ -1,12 +1,11 @@
-﻿using System;
+﻿using ShanoLibraries.MVVM.ValueConverters;
+using System;
 using System.Globalization;
 
 namespace ShanoLibraries.MVVM.DemoApplication.ValueConverters
 {
-    class TextToUpperConverter : ValueConverter
+    class TextToUpperConverter : MarkupExtensionValueConverter<string, string>
     {
-
-        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
-            value.ToString().ToUpper();
+        public override string Convert(string value, object parameter, CultureInfo culture) => value.ToUpper();
     }
 }

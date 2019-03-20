@@ -24,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>3</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -41,6 +42,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,15 +61,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DependencyManager.cs" />
-    <Compile Include="DialogManager.cs" />
-    <Compile Include="IBlockableWindow.cs" />
-    <Compile Include="IDependencyManager.cs" />
-    <Compile Include="IDialogManager.cs" />
-    <Compile Include="Infrastructure\Ensure.cs" />
-    <Compile Include="InjectAttribute.cs" />
-    <Compile Include="InjectingViewModel.cs" />
-    <Compile Include="Injection.cs" />
+    <Compile Include="Behavior\Grid.cs" />
+    <Compile Include="DependencyObjectHelpers\DependencyProperty.cs" />
+    <Compile Include="DependencyObjectHelpers\DependencyPropertyWrapper.cs" />
+    <Compile Include="DependencyObjectHelpers\RegisterDependency.cs" />
+    <Compile Include="Dialogs\ViewManager.cs" />
+    <Compile Include="Dialogs\IViewManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -78,19 +80,25 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="RelayCommand.cs" />
-    <Compile Include="ValueConverter.cs" />
-    <Compile Include="ViewModelBase.cs" />
-    <Compile Include="WindowShowBehavior.cs" />
-    <Compile Include="ViewModel.cs" />
+    <Compile Include="Interaction\RelayCommand.cs" />
+    <Compile Include="ValueConverters\DesignTimeValue.cs" />
+    <Compile Include="ValueConverters\MarkupExtensionValueConverter.cs" />
+    <Compile Include="ViewModels\StandardViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShanoLibraries.MVVM.NetStandard\ShanoLibraries.MVVM.NetStandard.csproj">
+      <Project>{2d31691a-1ca7-4557-a74d-849d1e66cb59}</Project>
+      <Name>ShanoLibraries.MVVM.NetStandard</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -38,8 +38,20 @@
     <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="JetBrains.Annotations, Version=2018.3.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2018.3.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net46\MahApps.Metro.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -63,10 +75,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ValueConverters\TextToUpperConverter.cs" />
-    <Compile Include="ViewModels\BlockingViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="Views\BlockingView.xaml.cs">
-      <DependentUpon>BlockingView.xaml</DependentUpon>
+    <Compile Include="Views\DPView.xaml.cs">
+      <DependentUpon>DPView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
@@ -100,7 +111,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\BlockingView.xaml">
+    <Page Include="Views\DPView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -113,9 +124,13 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShanoLibraries.MVVM\ShanoLibraries.MVVM.csproj">
+    <ProjectReference Include="..\ShanoLibraries.MVVM.Net45\ShanoLibraries.MVVM.Net45.csproj">
       <Project>{4de0d499-7c67-498e-a7cd-4a8907a82487}</Project>
-      <Name>ShanoLibraries.MVVM</Name>
+      <Name>ShanoLibraries.MVVM.Net45</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShanoLibraries.MVVM.NetStandard\ShanoLibraries.MVVM.NetStandard.csproj">
+      <Project>{2d31691a-1ca7-4557-a74d-849d1e66cb59}</Project>
+      <Name>ShanoLibraries.MVVM.NetStandard</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

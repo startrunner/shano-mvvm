@@ -1,17 +1,20 @@
-﻿using System;
+﻿using ShanoLibraries.MVVM.ViewModels;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ShanoLibraries.MVVM
+namespace ShanoLibraries.MVVM.Dialogs
 {
     /// <summary>
-    /// An implementation for <see cref="IDialogManager"/>
+    /// An implementation for <see cref="IViewManager"/>
     /// </summary>
-    public sealed class DialogManager : IDialogManager
+    public sealed class ViewManager : IViewManager
     {
+        readonly ObjectIDGenerator viewModelIDGenerator = new ObjectIDGenerator();
         readonly Dictionary<long, List<Window>> mActiveDialogs = new Dictionary<long, List<Window>>();
         readonly Dictionary<Type, Func<object, FrameworkElement>> mAssociations = new Dictionary<Type, Func<object, FrameworkElement>>();
 
@@ -23,43 +26,43 @@ namespace ShanoLibraries.MVVM
         public Func<FrameworkElement, Window> WindowCreator { get; set; } = DefaultCreateWindow;
 
         /// <summary>
-        /// Associates a type of <see cref="ViewModelBase"/> with the appropriate type of <see cref="FrameworkElement"/> view
-        /// to be used by <see cref="Show(ViewModelBase, WindowShowBehavior, ViewModelBase, Action)"/>.
+        /// Associates a type of <see cref="object"/> with the appropriate type of <see cref="FrameworkElement"/> view
+        /// to be used by <see cref="Show(object, WindowShowBehavior, object, Action)"/>.
         /// </summary>
         /// <returns>The dialog manager returns itself :)</returns>
-        public DialogManager AddAssociation<TViewModel, TView>()
+        public ViewManager AddAssociation<TViewModel, TView>()
             where TView : FrameworkElement, new()
-            where TViewModel : ViewModelBase
+            where TViewModel : class
             =>
             AddAssociation(typeof(TViewModel), x => new TView());
 
         /// <summary>
-        /// Associates a type of <see cref="ViewModelBase"/> with a factory function for
+        /// Associates a type of <see cref="object"/> with a factory function for
         /// appropriate <see cref="FrameworkElement"/> views.
         /// </summary>
         /// <returns>The dialog manager returns itself :)</returns>
-        public DialogManager AddAssociation<TViewModel>(Func<TViewModel, FrameworkElement> viewCreator)
-            where TViewModel : ViewModelBase
+        public ViewManager AddAssociation<TViewModel>(Func<TViewModel, FrameworkElement> viewCreator)
+            where TViewModel : class
             =>
             AddAssociation(typeof(TViewModel), x => viewCreator((TViewModel)x));
 
-        private DialogManager AddAssociation(Type vmType, Func<object, FrameworkElement> viewCreator)
+        private ViewManager AddAssociation(Type vmType, Func<object, FrameworkElement> viewCreator)
         {
             mAssociations.Add(vmType, viewCreator);
             return this;
         }
 
-        
+
         public bool? Show(
-            ViewModelBase viewModel,
+            object viewModel,
             WindowShowBehavior behavior = WindowShowBehavior.Dialog,
-            ViewModelBase ownerViewModel = null,
+            object ownerViewModel = null,
             Action onClosed = null
         )
         {
             if (!TryGetView(viewModel, out FrameworkElement view, out Exception getViewException)) throw getViewException;
 
-            ViewModel libraryViewModel = viewModel as ViewModel;
+            StandardViewModel libraryViewModel = viewModel as StandardViewModel;
             bool isLibraryViewModel = libraryViewModel != null;
 
             if (isLibraryViewModel) libraryViewModel.InvokeOnShowing();
@@ -101,14 +104,14 @@ namespace ShanoLibraries.MVVM
             }
         }
 
-        private bool TryGetOwnerWindow(ViewModelBase ownerViewModel, out Window ownerWindow)
+        private bool TryGetOwnerWindow(object ownerViewModel, out Window ownerWindow)
         {
             ownerWindow = null;
             bool success = ownerViewModel != null && TryGetActiveWindow(ownerViewModel, out ownerWindow);
             return success;
         }
 
-        private Window GetWindow(ViewModelBase viewModel, FrameworkElement view)
+        private Window GetWindow(object viewModel, FrameworkElement view)
         {
             if (!(view is Window window))
             {
@@ -124,7 +127,7 @@ namespace ShanoLibraries.MVVM
             return window;
         }
 
-        bool TryGetView(ViewModelBase viewModel, out FrameworkElement view, out Exception exception)
+        bool TryGetView(object viewModel, out FrameworkElement view, out Exception exception)
         {
             Type vmType = viewModel.GetType();
 
@@ -146,49 +149,31 @@ namespace ShanoLibraries.MVVM
             return true;
         }
 
-        bool TryGetActiveWindow(ViewModelBase owner, out Window window)
+        bool TryGetActiveWindow(object ownerViewModel, out Window window)
         {
-            mActiveDialogs.TryGetValue(owner.UniqueId, out List<Window> windows);
+            long viewModelID = viewModelIDGenerator.GetId(ownerViewModel, out _);
+            mActiveDialogs.TryGetValue(viewModelID, out List<Window> windows);
             window = windows?.FirstOrDefault();
             return window != null;
         }
 
-        void RegisterActiveWindow(ViewModelBase owner, Window window)
+        void RegisterActiveWindow(object viewModel, Window window)
         {
-            if (!mActiveDialogs.TryGetValue(owner.UniqueId, out List<Window> windows))
+            long viewModelID = viewModelIDGenerator.GetId(viewModel, out _);
+            if (!mActiveDialogs.TryGetValue(viewModelID, out List<Window> windows))
             {
-                mActiveDialogs.Add(owner.UniqueId, windows = new List<Window>());
+                mActiveDialogs.Add(viewModelID, windows = new List<Window>());
             }
             windows.Add(window);
         }
 
-        void UnregisterActiveWindow(ViewModelBase owner, Window window)
+        void UnregisterActiveWindow(object viewModel, Window window)
         {
-            if (!mActiveDialogs.TryGetValue(owner.UniqueId, out List<Window> windows)) return;
+            long viewModelID = viewModelIDGenerator.GetId(viewModel, out _);
+            if (!mActiveDialogs.TryGetValue(viewModelID, out List<Window> windows)) return;
             windows.RemoveAll(x => ReferenceEquals(x, window));
         }
 
-        private static Window DefaultCreateWindow(FrameworkElement element)
-        {
-            return new Window() {
-                Content = element
-            };
-        }
-
-        public IEnumerator GetEnumerator() => throw new NotImplementedException();
-        public void Block(ViewModel viewModel, ViewModelBase ownerViewModel)
-        {
-
-            if (!TryGetActiveWindow(ownerViewModel, out Window window)) throw new Exception("Owner has no active window.");
-            IBlockableWindow blockable = window as IBlockableWindow ;
-            if (window is IBlockableWindow == false) throw new Exception("Window is not blockable.");
-            if (!TryGetView(viewModel, out FrameworkElement view, out Exception getViewException)) throw getViewException;
-
-            view.DataContext = viewModel;
-
-            viewModel.TryingToClose += (sender, e) => blockable.Unblock();
-
-            blockable.Block(view);
-        }
+        private static Window DefaultCreateWindow(FrameworkElement element) => new Window() { Content = element };
     }
 }

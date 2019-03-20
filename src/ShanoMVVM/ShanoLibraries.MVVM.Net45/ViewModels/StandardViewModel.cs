@@ -1,23 +1,24 @@
-﻿using System;
+﻿using ShanoLibraries.MVVM.Interaction;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
-namespace ShanoLibraries.MVVM
+namespace ShanoLibraries.MVVM.ViewModels
 {
     /// <summary>
     /// A base ViewModel intented to make implementation of <see cref="ICommand"/> properties and managing sending signals to an associated view easier.
-    /// Inherits from <see cref="ViewModelBase"/>
+    /// Inherits from <see cref="MinimalViewModel"/>
     /// </summary>
-    public abstract class ViewModel : ViewModelBase, INotifyPropertyChanged
+    public abstract class StandardViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public event Action<ViewModel, bool?> TryingToClose;
+        public event Action<StandardViewModel, bool?> TryingToClose;
 
-        Dictionary<string, RelayCommand> mCommandsByName = null;
-        Dictionary<string, RelayCommand> CommandsByName =>
-            mCommandsByName ?? (mCommandsByName = new Dictionary<string, RelayCommand>());
+        Dictionary<string, RelayCommand> relayCommandsByName = null;
+        Dictionary<string, RelayCommand> RelayCommandsByName =>
+            relayCommandsByName ?? (relayCommandsByName = new Dictionary<string, RelayCommand>());
 
         protected void SetAndNotify<T>(
             ref T field,
@@ -32,7 +33,7 @@ namespace ShanoLibraries.MVVM
         }
 
         protected void NotifyChanged([CallerMemberName] string propertyName = null) =>
-            NotifyChanged(new[] { propertyName });
+            NotifyChanged(propertyNames: propertyName);
 
         protected void NotifyChanged(params string[] propertyNames)
         {
@@ -46,7 +47,7 @@ namespace ShanoLibraries.MVVM
         {
             foreach (string command in commandNames)
             {
-                if (CommandsByName.TryGetValue(command, out RelayCommand relay))
+                if (RelayCommandsByName.TryGetValue(command, out RelayCommand relay))
                 {
                     relay.NotifyCanExecuteChanged();
                 }
@@ -54,19 +55,21 @@ namespace ShanoLibraries.MVVM
         }
 
         protected ICommand CloseTrueCommand(Func<bool> canExecutePredicate = null, [CallerMemberName]string commandName = null) =>
-            Command(() => TryClose(true), canExecutePredicate, commandName);
+            RelayCommand(() => TryClose(true), canExecutePredicate, commandName);
         protected ICommand CloseFalseCommand(Func<bool> canExecutePredicate = null, [CallerMemberName]string commandName = null) =>
-            Command(() => TryClose(false), canExecutePredicate, commandName);
+            RelayCommand(() => TryClose(false), canExecutePredicate, commandName);
 
-        protected ICommand Command(
+        protected ICommand RelayCommand(
             Action executeAction,
             Func<bool> canExecutePredicate = null,
             [CallerMemberName] string commandName = null)
         {
-            if (!CommandsByName.TryGetValue(commandName, out RelayCommand command))
+            if (commandName == null) return new RelayCommand(executeAction, canExecutePredicate);
+
+            if (!RelayCommandsByName.TryGetValue(commandName, out RelayCommand command))
             {
                 command = new RelayCommand(executeAction, canExecutePredicate);
-                CommandsByName.Add(commandName, command);
+                RelayCommandsByName.Add(commandName, command);
             }
             return command;
         }

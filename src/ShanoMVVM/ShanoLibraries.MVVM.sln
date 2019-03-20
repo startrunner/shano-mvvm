@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShanoLibraries.MVVM.DemoApp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShanoLibraries.MVVM.Net45", "ShanoLibraries.MVVM.Net45\ShanoLibraries.MVVM.Net45.csproj", "{4DE0D499-7C67-498E-A7CD-4A8907A82487}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShanoLibraries.MVVM.NetStandard", "ShanoLibraries.MVVM.NetStandard\ShanoLibraries.MVVM.NetStandard.csproj", "{2D31691A-1CA7-4557-A74D-849D1E66CB59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShanoLibraries.MVVM.NetStandard", "ShanoLibraries.MVVM.NetStandard\ShanoLibraries.MVVM.NetStandard.csproj", "{2D31691A-1CA7-4557-A74D-849D1E66CB59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShanoLibraries.MVVM.Dialogs", "ShanoLibraries.MVVM.Dialogs\ShanoLibraries.MVVM.Dialogs.csproj", "{809249E4-F5CA-4B0D-BDBB-03F8CECCA75B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{2D31691A-1CA7-4557-A74D-849D1E66CB59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D31691A-1CA7-4557-A74D-849D1E66CB59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D31691A-1CA7-4557-A74D-849D1E66CB59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{809249E4-F5CA-4B0D-BDBB-03F8CECCA75B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{809249E4-F5CA-4B0D-BDBB-03F8CECCA75B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{809249E4-F5CA-4B0D-BDBB-03F8CECCA75B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{809249E4-F5CA-4B0D-BDBB-03F8CECCA75B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{A20B5695-7D24-46C0-ADD9-57E49E146741} = {D71E5956-D9BA-432F-AA94-4226E428F2DC}
 		{4DE0D499-7C67-498E-A7CD-4A8907A82487} = {5A4ABA62-527C-4FCD-B61D-1EBB2101A8A5}
 		{2D31691A-1CA7-4557-A74D-849D1E66CB59} = {5A4ABA62-527C-4FCD-B61D-1EBB2101A8A5}
+		{809249E4-F5CA-4B0D-BDBB-03F8CECCA75B} = {5A4ABA62-527C-4FCD-B61D-1EBB2101A8A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9F72C6D6-328B-49A3-9F61-7E21F3BEDAAF}

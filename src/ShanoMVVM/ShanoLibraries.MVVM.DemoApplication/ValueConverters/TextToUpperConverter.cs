@@ -4,8 +4,8 @@ using System.Globalization;
 
 namespace ShanoLibraries.MVVM.DemoApplication.ValueConverters
 {
-    class TextToUpperConverter : MarkupExtensionValueConverter<string, string>
+    class TextToUpperConverter : MarkupExtensionValueConverter
     {
-        public override string Convert(string value, object parameter, CultureInfo culture) => value.ToUpper();
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value.ToString().ToUpper();
     }
 }

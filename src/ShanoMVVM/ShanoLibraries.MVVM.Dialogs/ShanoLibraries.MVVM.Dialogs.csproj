@@ -4,49 +4,36 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4DE0D499-7C67-498E-A7CD-4A8907A82487}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>ShanoLibraries.MVVM</RootNamespace>
-    <AssemblyName>ShanoLibraries.MVVM.Net45</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ProjectGuid>{809249E4-F5CA-4B0D-BDBB-03F8CECCA75B}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>ShanoLibraries.MVVM.Dialogs</RootNamespace>
+    <AssemblyName>ShanoLibraries.MVVM.Dialogs</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <TargetFrameworkProfile />
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>3</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <LangVersion>7.3</LangVersion>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,12 +48,23 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behavior\Grid.cs" />
-    <Compile Include="DependencyObjectHelpers\DependencyProperty.cs" />
-    <Compile Include="DependencyObjectHelpers\DependencyPropertyWrapper.cs" />
-    <Compile Include="DependencyObjectHelpers\RegisterDependency.cs" />
-    <Compile Include="Dialogs\ViewManager.cs" />
-    <Compile Include="Dialogs\IViewManager.cs" />
+    <Compile Include="ViewModels\MessageBoxViewModel.cs" />
+    <Compile Include="View\MessageBoxView.xaml.cs">
+      <DependentUpon>MessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="CustomControl1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="View\MessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -80,23 +78,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Interaction\RelayCommand.cs" />
-    <Compile Include="ValueConverters\BooleanToVisibility.cs" />
-    <Compile Include="ValueConverters\CompositeConverter.cs" />
-    <Compile Include="ValueConverters\DesignTimeValue.cs" />
-    <Compile Include="ValueConverters\MarkupExtensionValueConverter.cs" />
-    <Compile Include="ViewModels\StandardViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ShanoLibraries.MVVM.Net45\ShanoLibraries.MVVM.Net45.csproj">
+      <Project>{4de0d499-7c67-498e-a7cd-4a8907a82487}</Project>
+      <Name>ShanoLibraries.MVVM.Net45</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShanoLibraries.MVVM.NetStandard\ShanoLibraries.MVVM.NetStandard.csproj">
       <Project>{2d31691a-1ca7-4557-a74d-849d1e66cb59}</Project>
       <Name>ShanoLibraries.MVVM.NetStandard</Name>

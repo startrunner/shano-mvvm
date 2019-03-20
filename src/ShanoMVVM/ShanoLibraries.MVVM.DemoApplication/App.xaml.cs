@@ -4,6 +4,7 @@ using ShanoLibraries.MVVM.DemoApplication.ViewModels;
 using ShanoLibraries.MVVM.DemoApplication.Views;
 using ShanoLibraries.MVVM.DependencyInjection;
 using ShanoLibraries.MVVM.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,12 +21,11 @@ namespace ShanoLibraries.MVVM.DemoApplication
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
         }
 
+        protected override void OnDeactivated(EventArgs e) => base.OnDeactivated(e);
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            IViewManager viewManager =
-                new ViewManager() {
-                    WindowCreator = (content) => CreateWindow(content, metro: false)
-                }
+            IViewManager viewManager = new ViewManager()
                 .AddAssociation<ShellViewModel, ShellView>();
 
             var containerBuilder = new ContainerBuilder();
@@ -42,24 +42,7 @@ namespace ShanoLibraries.MVVM.DemoApplication
             var shellDialog = new ShellViewModel(dependencies);
 
             viewManager.Show(shellDialog, WindowShowBehavior.Window, onClosed: () => Shutdown(0));
-        }
-
-        Window CreateWindow(FrameworkElement content, bool metro = true)
-        {
-            Window window;
-            if (metro) window = new MetroWindow();
-            else window = new Window();
-
-            window.Content = content;
-            if (content is Page page)
-            {
-                window.Title = page.Title;
-                window.Width = page.WindowWidth;
-                window.Height = page.WindowHeight;
-            }
-
-
-            return window;
+            base.OnStartup(e);
         }
     }
 }
